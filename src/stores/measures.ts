@@ -17,7 +17,6 @@ export const useMeasures = defineStore("measures", {
 		]),
 		selectedMeasure: null
 	}),
-	
 	actions: {
 		setEditedMeasure(measure:Measure | null) {
 			this.selectedMeasure = measure;
@@ -34,11 +33,40 @@ export const useMeasures = defineStore("measures", {
 		}
 	},
 	getters: {
-		sortedMeasures:(state):Measure[] => {
-			return Array.from(state.all.values()).sort((a, b) => b.id - a.id);
+		sortedMeasures:(state:MeasuresState):Measure[] => {
+			if (state.all instanceof Map) {
+				return Array.from(state.all.values()).sort((a, b) => b.id - a.id);
+			} else {
+				throw new Error("В state.all лежит не Map");
+			}
 		}, 
 		maxId:(state):number => {
 			return Math.max(...state.ids) === -Infinity ? 0 : Math.max(...state.ids) ;
 		} 
-	}
+	},
+	persist: {
+		serializer: {
+			serialize: mapToJSON,
+			deserialize: jsonToMap,
+		}
+	},
 })
+
+function mapToJSON(obj:object):string {
+		return JSON.stringify(obj, (key, value) => {
+			if (key === 'all') {
+				return Array.from(value.entries());
+			}
+			return value;
+		});
+}
+
+// Функция для десериализации JSON в Map
+function jsonToMap(json:string):object {
+  return JSON.parse(json, (key, value) => {
+		if (key === 'all') {
+			return new Map(value);
+		}
+		return value;
+	});;
+}

@@ -1,6 +1,5 @@
 import { defineStore } from "pinia"
 import { Warning } from "../warning";
-
 interface WarningState {
 	isVisible:boolean
 	warningObj:Warning
