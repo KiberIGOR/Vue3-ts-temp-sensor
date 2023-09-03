@@ -3,6 +3,10 @@
   import degreeLineItem from './degreeLineItem.vue'
   import { useMeasures } from '../stores/measures';
   import { useRouter } from 'vue-router';
+  import { useWarning } from '../stores/warning';
+  import { Warning } from '../warning';
+  const warningStore = useWarning();
+
   const router = useRouter();
   const measuresStore = useMeasures()
 
@@ -17,9 +21,12 @@
       router.push('/edit');
   }
   function handleDeleteClick(measure:Measure) {
-    measuresStore.deleteMeasure(measure.id);
+    const warning:Warning = {
+      text: 'удилить объект',
+      callback: () => measuresStore.deleteMeasure(measure.id)
+    }
+    warningStore.initialWarning(warning);
   }
-
 
 </script>
 

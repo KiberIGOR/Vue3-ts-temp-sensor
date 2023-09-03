@@ -1,0 +1,34 @@
+.s-delete-popup {
+  .a-popup {
+    &__container {
+      padding: 4rem;
+    }
+    &__close {
+      display: none;
+    }
+  }
+  &__title {
+    margin-bottom: 2.4rem;
+    font-size: 1.8rem;
+    font-weight: 600;
+    line-height: 2.4rem;
+  }
+
+  &__btns {
+    display: flex;
+    justify-content: center;
+    min-width: 16.5rem;
+    &-yes,
+    &-no {
+      min-width: 10rem;
+      padding: 1.6rem 2rem;
+      background: transparent;
+      border: 0.1rem solid var(--a-color_active);
+      border-radius: 0.4rem;
+    }
+
+    &-yes {
+      margin-right: 2rem;
+    }
+  }
+}

@@ -1,4 +1,8 @@
 <script setup lang="ts">
+import sDeletePopup from "./components/s-delete-popup/s_delete_popup.vue";
+import { useWarning } from './stores/warning';
+const warningStore = useWarning();
+
 </script>
 
 <template>
@@ -7,6 +11,11 @@
       <router-view />
     </div>
   </section>
+  <sDeletePopup
+  :visible="warningStore.isVisible" 
+  :warning="warningStore.warningObj" 
+  @close-popup="warningStore.toggleIsVisiblePopup(false)"
+  />
 </template>
 
 <style lang="scss">
