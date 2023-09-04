@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia';
-import { Measure, MeasureMockDataOne, MeasureMockDataThree, MeasureMockDataTwo } from '../measure';
+import { Measure } from '../measure';
 
 interface MeasuresState {
   /** Объект со списком id */
