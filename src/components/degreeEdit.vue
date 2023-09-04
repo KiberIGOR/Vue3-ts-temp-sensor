@@ -13,7 +13,7 @@ const warningStore = useWarning();
 
 const initialID = measuresStore.selectedMeasure ? measuresStore.selectedMeasure.id : measuresStore.maxId + 1;
 const temp = ref<string | number>(measuresStore.selectedMeasure ? measuresStore.selectedMeasure.temp : '');
-const inputError = computed(() => {
+const isInputError = computed(() => {
   const regex = /^-?[0-9]+$/;
   return !regex.test(temp.value as string);
 });
@@ -29,7 +29,7 @@ function handleSaveClick() {
     id: initialID,
     temp: tempValue,
   };
-  if (!inputError.value) {
+  if (!isInputError.value) {
     measuresStore.createOrResetMeasure(newMeasure);
     measuresStore.setEditedMeasure(null);
     router.push('/');
@@ -66,10 +66,10 @@ function handleDeleteClick() {
 <template>
   <div class="degreeEdit">
     <nav class="degreeEdit__nav">
-      <a href="#" @click="handleSaveClick" class="button button_1">{{
+      <button @click="handleSaveClick" class="button button_1">{{
         measuresStore.selectedMeasure ? 'Save...' : 'Add....'
-      }}</a>
-      <a href="#" @click="handleCanselClick" class="button button_3">Cansel</a>
+      }}</button>
+      <button @click="handleCanselClick" class="button button_3">Cansel</button>
     </nav>
     <div class="panel">
       <h1 class="panel__title">
@@ -77,11 +77,11 @@ function handleDeleteClick() {
       </h1>
       <div class="degreeEdit__panel-items">
         <a-input label="id:" :value="initialID" :disabled="true" />
-        <a-input label="temp:" :value="temp" @update:value="temp = $event" :is-error="inputError" />
+        <a-input label="temp:" :value="temp" @update:value="temp = $event" :is-error="isInputError" />
       </div>
     </div>
     <div v-if="measuresStore.selectedMeasure" class="degreeEdit__delete">
-      <a @click="handleDeleteClick" class="button button_2">Delete value</a>
+      <button @click="handleDeleteClick" class="button button_2">Delete value</button>
     </div>
   </div>
 </template>

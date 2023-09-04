@@ -20,7 +20,7 @@
     width: 100%;
     height: 5rem;
     padding: 1.2rem 0 0 1rem;
-    background: var(--bg-white);
+    background: var(--progect-color-gray-light);
     border-radius: var(--border-radius);
     font-size: 1.8rem;
     line-height: 1.8rem;
@@ -33,7 +33,7 @@
     }
     &:focus-visible {
       outline: none;
-      background: var(--bg-white);
+      background: var(--progect-color-gray-light-two);
     }
   }
 }

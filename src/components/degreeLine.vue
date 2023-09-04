@@ -30,7 +30,7 @@ function handleDeleteClick(measure: Measure) {
 <template>
   <div class="degreeLine">
     <nav class="degreeLine__nav">
-      <a @click="handleAddClick()" class="button button_3">+ Add New</a>
+      <button @click="handleAddClick()" class="button button_3">+ Add New</button>
     </nav>
     <div class="panel">
       <h1 class="panel__title">Temperature sensor values:</h1>
