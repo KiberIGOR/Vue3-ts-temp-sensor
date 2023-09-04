@@ -2,19 +2,19 @@ import { defineStore } from "pinia"
 import { Measure, MeasureMockDataOne, MeasureMockDataThree, MeasureMockDataTwo } from "../measure";
 
 interface MeasuresState {
+	/** Объект со списком id */
 	ids: number[]
+	/** Map со структурой ключ(id): объект записи */
 	all: Map<number, Measure>
+	/** Селект записи для отображения на странце /edit
+	 * @default null */
 	selectedMeasure: Measure | null
 }
 
 export const useMeasures = defineStore("measures", {
 	state: (): MeasuresState => ({
-		ids: [MeasureMockDataOne.id,MeasureMockDataTwo.id,MeasureMockDataThree.id],
-		all: new Map([
-			[MeasureMockDataOne.id,MeasureMockDataOne],
-			[MeasureMockDataTwo.id,MeasureMockDataTwo],
-			[MeasureMockDataThree.id,MeasureMockDataThree]
-		]),
+		ids: [],
+		all: new Map([]),
 		selectedMeasure: null
 	}),
 	actions: {
@@ -33,6 +33,7 @@ export const useMeasures = defineStore("measures", {
 		}
 	},
 	getters: {
+		//Функцая возвращает массив записей по убыванию
 		sortedMeasures:(state:MeasuresState):Measure[] => {
 			if (state.all instanceof Map) {
 				return Array.from(state.all.values()).sort((a, b) => b.id - a.id);
@@ -52,6 +53,7 @@ export const useMeasures = defineStore("measures", {
 	},
 })
 
+// Функция для сериализации Map в JSON для persist
 function mapToJSON(obj:object):string {
 		return JSON.stringify(obj, (key, value) => {
 			if (key === 'all') {
@@ -61,7 +63,7 @@ function mapToJSON(obj:object):string {
 		});
 }
 
-// Функция для десериализации JSON в Map
+// Функция для десериализации JSON в Map для persist
 function jsonToMap(json:string):object {
   return JSON.parse(json, (key, value) => {
 		if (key === 'all') {

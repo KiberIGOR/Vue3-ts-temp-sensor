@@ -19,8 +19,8 @@
       Вы уверены, что хотите {{ warning.text }}?
     </h3>
     <div class="s-delete-popup__btns">
-      <button class="a-font_button s-delete-popup__btns-yes" @click="deleteCurrentData">Да</button>
-      <button class="a-font_button s-delete-popup__btns-no" @click="$emit('close-popup')">Нет</button>
+      <button class="s-delete-popup__btns-yes button button_3" @click="deleteCurrentData">Да</button>
+      <button class="s-delete-popup__btns-no button button_3" @click="$emit('close-popup')">Нет</button>
     </div>
   </a-popup>
 </template>

@@ -1,0 +1,44 @@
+.a-input__container {
+  position: relative;
+  margin: 0 1.5rem 0 1.5rem;
+}
+
+.a-input__container:not(:last-child) {
+  margin-bottom: 2rem;
+}
+
+.a-input__label {
+  position: absolute;
+  top: 0.3rem;
+  margin: 0;
+  left: 1rem;
+  color: gray;
+  font-size: 1.6rem;
+  opacity: 0.6;
+}
+
+.a-input__input {
+  border: none;
+  width: 100%;
+  height: 5rem;
+  padding: 1.2rem 0 0 1rem;
+  background: #efeeee;
+  border-radius: 0.6rem;
+  font-size: 1.8rem;
+  line-height: 1.8rem;
+  font-weight: 500;
+}
+
+.a-input__input.disabled {
+  cursor: not-allowed;
+}
+
+.a-input__input.--error {
+  border: 0.1rem solid red;
+}
+
+.a-input__input:focus-visible {
+  outline: none;
+  background: #e4e2e2;
+}
+/*# sourceMappingURL=a_input.css.map */

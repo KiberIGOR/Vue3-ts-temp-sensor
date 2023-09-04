@@ -1,23 +1,21 @@
 <script setup lang="ts">
   import { Measure } from '../measure'
-  import degreeLineItem from './degreeLineItem.vue'
+  import degreeLineItem from './s-degree-item/s-degree-item.vue'
   import { useMeasures } from '../stores/measures';
   import { useRouter } from 'vue-router';
   import { useWarning } from '../stores/warning';
   import { Warning } from '../warning';
-  const warningStore = useWarning();
-
+  
   const router = useRouter();
   const measuresStore = useMeasures()
+  const warningStore = useWarning();
 
   function addMeasure() {
       measuresStore.setEditedMeasure(null);
-      // console.log(measuresStore.selectedMeasure);
       router.push('/edit');
   }
   function editMeasure(measure:Measure) {
       measuresStore.setEditedMeasure(measure);
-      // console.log(measuresStore.selectedMeasure);
       router.push('/edit');
   }
   function handleDeleteClick(measure:Measure) {
@@ -27,7 +25,6 @@
     }
     warningStore.initialWarning(warning);
   }
-
 </script>
 
 <template>
@@ -38,10 +35,15 @@
         <div class="panel">
           <h1 class="panel__title">Temperature sensor values:</h1>
           <div class="degreeLine__panel-items">
+            <template v-if="measuresStore.sortedMeasures.length">
               <degreeLineItem v-for="measure of measuresStore.sortedMeasures" :key="measure.id" 
                :measure="measure"
               @editIconClick="editMeasure"
               @deleteIconClick="handleDeleteClick" />
+            </template>
+            <div v-else class="degreeLine__panel-text">
+              <p class="text">Records missing</p>
+            </div>
           </div>
         </div>
       </div>
@@ -57,6 +59,10 @@
   }
   &__panel {
     width: 100%;
+    &-text {
+      text-align: center;
+      padding-bottom: 1rem;
+    }
   }
 }
 </style>

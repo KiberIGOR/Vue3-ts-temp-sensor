@@ -1,7 +1,9 @@
 import { defineStore } from "pinia"
 import { Warning } from "../warning";
 interface WarningState {
+	/** Отвечает за показ попапа с подтверждением */
 	isVisible:boolean
+	/** Объект для работы попапа с подтверждением */
 	warningObj:Warning
 }
 

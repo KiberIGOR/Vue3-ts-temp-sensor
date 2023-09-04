@@ -1,3 +1,4 @@
+//файл с типом и моками для основного объекта 
 export interface Measure {
 	id: number;
 	temp: number;

@@ -1,14 +1,8 @@
+//файл с типом для объекта подтверждения
 export interface Warning {
+	/** Текст для показа Warning */
 	text:string
-	/**
-   * This method will be called after ``
-   *
-   * @default JSON.parse
-   */
+	/** Этот метод будет вызван после подтверждения дествия
+   * @default ()=>{}*/
 	callback:(value?: number) => void
-}
-
-export const DeleteWarning:Warning = {
-	text:'удалить значение',
-	callback: () => {}
 }

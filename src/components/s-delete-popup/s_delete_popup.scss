@@ -2,6 +2,7 @@
   .a-popup {
     &__container {
       padding: 4rem;
+      border-radius: 0.6rem;
     }
     &__close {
       display: none;
@@ -22,9 +23,6 @@
     &-no {
       min-width: 10rem;
       padding: 1.6rem 2rem;
-      background: transparent;
-      border: 0.1rem solid var(--a-color_active);
-      border-radius: 0.4rem;
     }
 
     &-yes {

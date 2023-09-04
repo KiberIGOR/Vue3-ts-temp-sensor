@@ -5,6 +5,3 @@ import degreeEdit from '../components/degreeEdit.vue'
 <template>
     <degreeEdit/>
 </template>
-
-<style lang="scss">
-</style>

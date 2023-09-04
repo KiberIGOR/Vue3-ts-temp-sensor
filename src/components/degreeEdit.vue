@@ -1,22 +1,23 @@
 <script setup lang="ts">
-import { ref } from 'vue';
+import { computed, ref } from 'vue';
 import { Measure } from '../measure'
 import { useMeasures } from '../stores/measures';
 import { useRouter } from 'vue-router';
 import { Warning } from '../warning';
 import { useWarning } from '../stores/warning';
+import aInput  from './a_input/a_input.vue';
 
   const router = useRouter();
   const measuresStore = useMeasures();
   const warningStore = useWarning();
 
   const initialID = measuresStore.selectedMeasure ? measuresStore.selectedMeasure.id :  measuresStore.maxId + 1;
-  const temp = ref<unknown>(measuresStore.selectedMeasure ? measuresStore.selectedMeasure.temp : '');
-
-  function containsOnlyNumbers(inputString:string):boolean {
+  const temp = ref<string|number>(measuresStore.selectedMeasure ? measuresStore.selectedMeasure.temp : '');
+  const inputError = computed(()=> {
     const regex = /^-?[0-9]+$/;
-    return regex.test(inputString);
-  }
+    return !regex.test(temp.value as string);
+  });
+
   function saveNewValue() {
       console.log(temp.value);
       if (typeof temp.value == "number") {
@@ -27,8 +28,8 @@ import { useWarning } from '../stores/warning';
         measuresStore.createOrResetMeasure(newMeasure);
         router.push('/');
       } else if (typeof temp.value == "string") {
-        // ### Написать вывод ошибки в инпут
-        if(containsOnlyNumbers(temp.value)) {
+        console.log(inputError.value);
+        if(!inputError.value) {
             const tempValue = parseInt(temp.value, 10)
             const newMeasure:Measure = {
               id: initialID,
@@ -63,7 +64,6 @@ import { useWarning } from '../stores/warning';
     }
     warningStore.initialWarning(warning);
   }
-
 </script>
 
 <template>
@@ -75,15 +75,8 @@ import { useWarning } from '../stores/warning';
         <div class="panel">
           <h1 class="panel__title">{{ measuresStore.selectedMeasure ? 'Change sensor value:' : 'Add new sensor value:' }}</h1>
           <div class="degreeEdit__panel-items">
-            // ### Убрать в компонент
-            <div class="a-input__container">
-              <p class="a-input__label">id</p>
-              <input class="a-input__input disabled" :value="initialID" disabled/>
-            </div>
-            <div class="a-input__container">
-              <p class="a-input__label">temp:</p>
-              <input class="a-input__input" v-model="temp"/>
-            </div>
+            <a-input label="id:" :value="initialID" :disabled="true"/>
+            <a-input label="temp:" :value="temp" @update:value="temp = $event" :is-error="inputError"/>
           </div>
         </div>
         <div v-if="measuresStore.selectedMeasure" class="degreeEdit__delete">
@@ -111,41 +104,5 @@ import { useWarning } from '../stores/warning';
     display: flex;
     justify-content: center;
   }
-.a-input {
-&__container {
-  position: relative;
-  margin: 0 1.5rem 0 1.5rem;
-  &:not(:last-child) {
-    margin-bottom: 2rem;
-  }
-  }
-&__label {
-    position: absolute;
-    top: 0.3rem;
-    margin: 0;
-    left: 1rem;
-    color: gray;
-    font-size: 1.6rem;
-    opacity: 0.6;
-}
-&__input {
-  border: none;
-  width: 100%;
-  height: 5rem;
-  padding: 1.2rem 0 0 1rem;
-  background: rgb(239, 238, 238);
-  border-radius: 0.6rem;
-  font-size: 1.8rem;
-  line-height: 1.8rem;
-  font-weight: 500;
-  &.disabled {
-    cursor: not-allowed;
-  }
-  &:focus-visible {
-    outline: none;
-    background:rgb(228, 226, 226);
-  }
-}
-}
 }
 </style>

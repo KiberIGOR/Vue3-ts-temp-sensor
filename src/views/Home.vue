@@ -5,6 +5,3 @@ import degreeLine from '../components/degreeLine.vue'
 <template>
     <degreeLine/>
 </template>
-
-<style lang="scss">
-</style>
