@@ -1,7 +1,7 @@
 # temperature sensor
 
 P.S. This repository contains the temp-sensor project developed by Igor Kobozev.
-Tech: Vue 3 + TypeScript + Vite + Pinia + Router
+Tech: Vue 3 + TypeScript + Vite + Pinia + Persist + Router
 # initialization
  node -v >16.14.0
 ```

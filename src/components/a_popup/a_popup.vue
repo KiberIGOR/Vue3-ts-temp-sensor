@@ -1,12 +1,12 @@
 <script setup lang="ts">
 import './a_popup.scss';
-defineProps<{visible: Boolean}>();
 
+defineProps<{ visible: Boolean }>();
 const emit = defineEmits(['close']);
 
-   function closePopup() {
-      emit('close', false);
-  };
+function closePopup() {
+  emit('close', false);
+}
 </script>
 
 <template>
@@ -20,5 +20,3 @@ const emit = defineEmits(['close']);
     </div>
   </div>
 </template>
-
-

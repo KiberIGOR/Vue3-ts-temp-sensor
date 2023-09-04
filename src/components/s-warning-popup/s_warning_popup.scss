@@ -1,8 +1,8 @@
-.s-delete-popup {
+.s-warning-popup {
   .a-popup {
     &__container {
       padding: 4rem;
-      border-radius: 0.6rem;
+      border-radius: var(--border-radius);
     }
     &__close {
       display: none;
