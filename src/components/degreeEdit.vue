@@ -50,7 +50,6 @@ function handleCanselClick() {
   }
 }
 function handleDeleteClick() {
-  measuresStore.deleteMeasure(initialID);
   const warning: Warning = {
     text: 'удилить объект',
     callback: () => {
